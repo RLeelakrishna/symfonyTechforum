@@ -12,8 +12,8 @@
 
        {% if is_granted('ROLE_USER') %}
     You are logged in as {{ app.user.firstname }}
-         <b> <a style="margin-left: 1000px;display:inline-block;
-    box-shadow: 0 5px 10px rgba(0,0,0,3);" href="{{ path('app_logout') }}">Logout</a></b>
+         <b> <a style="margin-left: 1000px;display:inline-block;box-shadow:  1px 2px 3px 4px gainsboro;
+   ;color: chocolate" href="{{ path('app_logout') }}">Logout <i class="fas fa-sign-out-alt"></i></a></b>
     {% endif %}
 
            <h1 style="margin-top:200px;font-size: 700%;margin-left: 300px;"><b>TECHFORUM</b></h1>
@@ -27,7 +27,7 @@
         {%  if is_granted('ROLE_USER') %}
         <li>
 
-            <a href="#">Ask a question</a>
+            <a href="{{ path('ask_question') }}">Ask a question</a>
 
 
         </li>

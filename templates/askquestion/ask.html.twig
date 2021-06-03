@@ -1,0 +1,42 @@
+{% extends 'security/base.html.twig' %}
+
+{% block title %}ASK{% endblock %}
+
+{% block stylesheets  %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/ask.css') }}">
+{% endblock %}
+
+
+
+{% block body %}
+   <br>
+    {% if is_granted('ROLE_USER') %}
+        You are logged in as {{ app.user.firstname }}
+        <b> <a style="margin-left: 1000px;display:inline-block;box-shadow:  1px 2px 3px 4px gainsboro;
+   ;color: chocolate" href="{{ path('app_logout') }}">Logout <i class="fas fa-sign-out-alt"></i></a></b>
+    {% endif %}
+
+    <h1 style="margin-top:100px;margin-left:180px;font-size: 200%;"><b>Ask a public question    <i class="fas fa-question-circle"></i>
+        </b></h1>
+    <i class="bi bi-question-diamond-fill"></i>
+    <div class="card bg-warning text-white">
+        <div class="card-body"></div>
+    </div>
+
+    <div class="container">
+        <form>
+            <label for="askquestion" class="sr-only">Photo</label>
+            <input type="text" name="question" id="ask" class="form-control" style="font-size:200%;" placeholder="Write your question.." >
+            <br>
+            <button  style="width: 200px;margin-top:20px;float: right;" class="btn btn-lg btn-primary btn-block" type="submit">
+                PostQuestion!
+            </button>
+        </form>
+    </div>
+
+
+
+
+
+{% endblock %}

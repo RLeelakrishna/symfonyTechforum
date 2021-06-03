@@ -27,8 +27,19 @@ class RegisterController extends AbstractController
 
         $form->handleRequest($request);
 
+
+
         if($form->isSubmitted() && $form->isValid()) {
 
+            $file = $form->get('photo')->getData();
+            $uploads_directory = $this->getParameter('uploads_directory');
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+
+            $file->move(
+                $uploads_directory,
+                $filename
+            );
+            $user->setPhoto($filename);
             $user->setPassword($passwordEncoder->encodePassword($user,$user->getPassword()));
             $em->persist($user);
             $em->flush();

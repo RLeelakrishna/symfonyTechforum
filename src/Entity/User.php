@@ -27,6 +27,7 @@ class User implements UserInterface
      */
     private $email;
 
+   
     /**
      * @ORM\Column (type="string" , length=32 )
      */
@@ -48,6 +49,12 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=150)
+     * @Assert\File(mimeTypes={"image/jpeg"})
+     */
+    private $photo;
 
     public function getId(): ?int
     {
@@ -149,6 +156,18 @@ class User implements UserInterface
     public function setlastName(string $lastName): self
     {
         $this->lastName = $lastName;
+        return $this;
+    }
+
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+
         return $this;
     }
 

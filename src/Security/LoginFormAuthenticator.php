@@ -77,6 +77,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
 
         $token = new CsrfToken('authenticate' , $credentials['csrf_token']);
+//        dd($token);
 
 
         if (!$this->csrfTokenManager->isTokenValid($token)) {
