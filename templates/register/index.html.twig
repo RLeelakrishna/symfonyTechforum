@@ -1,0 +1,53 @@
+{% extends 'security/base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block stylesheets  %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+{% endblock %}
+
+{% block body %}
+    <form class="form-signin" method="post">
+
+
+        <br>
+        <h1 class="h3 mb-3 font-weight-normal">Please Register</h1>
+
+        <label for="inputFirstName" class="sr-only">Photo</label>
+        <input type="text" name="firstName" id="inputFirstName" class="form-control" placeholder="firstname" >
+
+        <label for="inputlastName" class="sr-only">Photo</label>
+        <input type="text" name="lastName" id="inputlastName" class="form-control" placeholder="lastName" >
+
+        <label for="inputPhoto" class="sr-only">Photo</label>
+        <input type="file" name="file" id="inputPhoto" class="form-control" placeholder="upload_pic">
+
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email"  name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
+        <label for="inputPassword" class="sr-only">ConfirmPassword</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="ConfirmPassword" required>
+
+
+
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_terms"> Agree the terms:
+            </label>
+        </div>
+
+        <a href="{{ path('app_login') }}">SignIn</a>
+        <br>
+        <br>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+           Register
+        </button>
+
+    </form>
+{% endblock %}

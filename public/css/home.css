@@ -1,0 +1,31 @@
+.home
+{
+    float: right;
+    padding-right:20% ;
+    list-style: none;
+
+
+}
+.home li{
+    display:inline-block;
+    margin-right: 70px;
+    box-shadow: 0 5px 10px rgba(0,0,0,3);
+}
+.home li a{
+    color:black;
+    text-decoration: none;
+    padding: 5px 20px;
+    /*font-family: "Arial Black";*/
+    display: inline-block;
+    font-size: 40px;
+
+}
+.home li a:hover{
+    background:#fff;
+    color:#000;
+    color:#333;
+
+}
+body{
+    background-color: skyblue;
+}

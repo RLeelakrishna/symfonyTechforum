@@ -1,0 +1,47 @@
+{% extends 'security/base.html.twig' %}
+
+{% block title %}HomePage{% endblock %}
+
+{% block stylesheets  %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <br>
+
+       {% if is_granted('ROLE_USER') %}
+    You are logged in as {{ app.user.firstname }}
+         <b> <a style="margin-left: 1000px;display:inline-block;
+    box-shadow: 0 5px 10px rgba(0,0,0,3);" href="{{ path('app_logout') }}">Logout</a></b>
+    {% endif %}
+
+           <h1 style="margin-top:200px;font-size: 700%;margin-left: 300px;"><b>TECHFORUM</b></h1>
+
+
+
+
+
+
+    <ul class="home">
+        {%  if is_granted('ROLE_USER') %}
+        <li>
+
+            <a href="#">Ask a question</a>
+
+
+        </li>
+        {% else %}
+            <li>
+                <a href="{{ path('app_login') }}">Login</a>
+                <a href="{{ path('app_register') }}">Register</a>
+                <a href="#">about</a>
+                <a href="#">search</a>
+
+            </li>
+        {% endif %}
+    </ul>
+
+
+
+{% endblock %}
