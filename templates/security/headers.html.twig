@@ -1,0 +1,13 @@
+{% extends 'security/base.html.twig' %}
+
+{% block title %}Headers{% endblock %}
+
+{% block body %}
+<br>
+ {% if is_granted('ROLE_USER') %}
+     You are logged in as {{ app.user.firstname }}
+     <b> <a style="margin-left: 1000px;display:inline-block;box-shadow:  1px 2px 3px 4px gainsboro;
+   ;color: chocolate;" href="{{ path('app_logout') }}">Logout <i class="fas fa-sign-out-alt"></i></a></b>
+ {% endif %}
+
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -55,6 +57,28 @@ class User implements UserInterface
      * @Assert\File(mimeTypes={"image/jpeg"})
      */
     private $photo;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="user")
+     */
+    private $questions;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Answers::class, mappedBy="user")
+     */
+    private $answers;
+
+    /**
+     * @ORM\OneToMany(targetEntity=QuestionComments::class, mappedBy="user")
+     */
+    private $questionComments;
+
+
+    public function __construct()
+    {
+        $this->questions = new ArrayCollection();
+        $this->questionComments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -170,6 +194,98 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Question[]
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->questions;
+    }
+
+    public function addQuestion(Question $question): self
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(Question $question): self
+    {
+        if ($this->questions->removeElement($question)) {
+            // set the owning side to null (unless already changed)
+            if ($question->getUser() === $this) {
+                $question->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+/**
+ * @return Collection|Answers[]
+ */
+public function getAnswers(): Collection
+{
+    return $this->answers;
+}
+
+public function addAnswer(Answers $answer): self
+{
+    if (!$this->answers->contains($answer)) {
+        $this->answers[] = $answer;
+        $answer->setUser($this);
+    }
+
+    return $this;
+}
+
+public function removeAnswer(Answers $answer): self
+{
+    if ($this->answers->removeElement($answer)) {
+        // set the owning side to null (unless already changed)
+        if ($answer->getUser() === $this) {
+            $answer->setUser(null);
+        }
+    }
+
+    return $this;
+}
+
+/**
+ * @return Collection|QuestionComments[]
+ */
+public function getQuestionComments(): Collection
+{
+    return $this->questionComments;
+}
+
+public function addQuestionComment(QuestionComments $questionComment): self
+{
+    if (!$this->questionComments->contains($questionComment)) {
+        $this->questionComments[] = $questionComment;
+        $questionComment->setUser($this);
+    }
+
+    return $this;
+}
+
+public function removeQuestionComment(QuestionComments $questionComment): self
+{
+    if ($this->questionComments->removeElement($questionComment)) {
+        // set the owning side to null (unless already changed)
+        if ($questionComment->getUser() === $this) {
+            $questionComment->setUser(null);
+        }
+    }
+
+    return $this;
+}
 
 
 }

@@ -2,34 +2,32 @@
 
 {% block title %}HomePage{% endblock %}
 
+
 {% block stylesheets  %}
+
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 {% endblock %}
-
 {% block body %}
+
+
+
     <br>
 
-       {% if is_granted('ROLE_USER') %}
-    You are logged in as {{ app.user.firstname }}
+
+
+    {% if is_granted('ROLE_USER') %}
+        <b> You are logged in as {{ app.user.firstname }}
          <b> <a style="margin-left: 1000px;display:inline-block;box-shadow:  1px 2px 3px 4px gainsboro;
-   ;color: chocolate" href="{{ path('app_logout') }}">Logout <i class="fas fa-sign-out-alt"></i></a></b>
+   ;color: black" href="{{ path('app_logout') }}">Logout <i class="fas fa-sign-out-alt"></i></a></b>
     {% endif %}
 
-           <h1 style="margin-top:200px;font-size: 700%;margin-left: 300px;"><b>TECHFORUM</b></h1>
-
-
-
-
-
-
+           <h1 style="margin-top:100px;font-size: 700%;margin-left: 300px;"><b>TECHFORUM</b></h1>
     <ul class="home">
         {%  if is_granted('ROLE_USER') %}
         <li>
-
+            <a href="{{ path('app_Qlist') }}">List of question</a>
             <a href="{{ path('ask_question') }}">Ask a question</a>
-
-
         </li>
         {% else %}
             <li>
@@ -37,10 +35,23 @@
                 <a href="{{ path('app_register') }}">Register</a>
                 <a href="#">about</a>
                 <a href="#">search</a>
-
             </li>
         {% endif %}
     </ul>
+<br><br><br><br><br><br><br>
+    {% if not  is_granted('ROLE_USER') %}
+    <div class="cards" style="margin-left: 500px;color: black;font-size: 30px;display:inline-block;box-shadow:  1px 2px 3px 4px gainsboro;">
+     {% for query in query %}
+    <br>
+         ->  {{ query.description }}
+
+    {% endfor %}<br>
+        </div>
+        <br><br>
+       <h6 style="font-family: 'Trebuchet MS', sans-serif;margin-left: 500px;"> want to see more questions??</h6>
+        <a style="color: darkblue;font-size: 20px;margin-left: 500px;" href="{{ path('app_Qlist') }}"> .Clickhere </a>
+
+        {% endif %}
 
 
 

@@ -41,6 +41,7 @@ class RegisterController extends AbstractController
             );
             $user->setPhoto($filename);
             $user->setPassword($passwordEncoder->encodePassword($user,$user->getPassword()));
+
             $em->persist($user);
             $em->flush();
 

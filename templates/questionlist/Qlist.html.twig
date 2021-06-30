@@ -1,0 +1,60 @@
+{% extends 'security/base.html.twig' %}
+
+{% block title %}list{% endblock %}
+
+{% block stylesheets  %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/qlist.css') }}" xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+
+
+{% block body %}
+    <br>
+    <br>
+    {% if is_granted('ROLE_USER') %}
+        <b> You are logged in as {{ app.user.firstname }} </b>
+    {% endif %}
+
+    <b> <a style="margin-left:1200px;display:inline-block;box-shadow:  1px 2px 3px 4px gainsboro;
+   ;color:black" href="{{ path('app_home') }}">Home <i class="fa fa-home"></i></a></b>
+        &nbsp;
+    {% if is_granted('ROLE_USER') %}
+<b> <a style="display:inline-block;box-shadow:  1px 2px 3px 4px gainsboro;
+   ;color: black" href="{{ path('app_logout') }}">Logout <i class="fas fa-sign-out-alt"></i></a></b>
+    {% endif %}
+
+
+    {{ form_start(form,
+        { 'attr' : {'class' : 'navbar-form navbar-right' }}
+    )}}
+    {{ form_widget(form.query,
+        {'attr':{'class' : 'search' ,'placeholder' :  'search for question...' }}
+    ) }} &nbsp;
+    {{ form_widget(form.search,
+        {'attr':{'class' : 'btn btn-primary' }}
+    ) }}
+
+    {{ form_end(form) }}
+    <br>
+
+
+
+    <div class="list-group-item-danger" style="height: 75px;"><br>
+    <h1 style="margin-left:500px;font-size: 200%;"><b>List of All {{ pagination.getTotalItemCount }} Questions<i class="fas fa-question-circle"></i>
+    </b></h1>
+    </div>
+
+    <br>
+    {% for question in pagination %}
+        <a style="margin-left: 500px;margin-top:200px;color: darkblue;font-size: 20px" href="{{ path('answers',{'id': question.id}) }}">
+      ->  {{ question.description }}<br> </a>
+    {% endfor %}
+
+
+
+    <div class="navigation" style="margin-left: 530px;margin-top: 300px;">
+     {{ knp_pagination_render(pagination) }}
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'security/base.html.twig' %}
+
+
+{% block title %}AnswerComment!{% endblock %}
+{% block stylesheets  %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/answer.css') }}">
+{% endblock %}
+
+
+
+{% block body %}
+<br>
+<br>
+{% if is_granted('ROLE_USER') %}
+    You are logged in as {{ app.user.firstname|upper }}
+    <b> <a style="margin-left:1200px;display:inline-block;box-shadow:  1px 2px 3px 4px gainsboro;
+   ;color: black" href="{{ path('app_home') }}">Home <i class="fa fa-home" aria-hidden="true"></i></a></b>
+    &nbsp;
+    <b> <a style="display:inline-block;box-shadow:  1px 2px 3px 4px gainsboro;
+   ;color: black" href="{{ path('app_logout') }}">Logout <i class="fas fa-sign-out-alt"></i></a></b>
+{% endif %}
+
+
+
+    {{ form_start(form)}}
+    {{ form_errors(form) }}
+    {{ form_row(form.body, { 'attr': {'class': 'form-control', 'placeholder': 'Post your answer comment...', 'value':''}  }) }}<br>
+    {{ form_end(form) }}
+    <br>
+
+
+
+
+
+{% endblock %}

@@ -46,9 +46,6 @@ class Usertype extends AbstractType
                     'type' => PasswordType::class,
 
 
-
-
-
                 ])
                 ->add('submit',SubmitType::class,[
                 'attr' => [

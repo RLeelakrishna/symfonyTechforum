@@ -2,23 +2,35 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Entity\Question;
+use App\Repository\QuestionRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-///**
-// * @IsGranted("ROLE_USER")
-// */
 class HomeController extends AbstractController
 {
     /**
      * @Route("/home", name="app_home")
      */
-    public function home(): Response
+    public function home(Request $request,EntityManagerInterface $em ): Response
     {
-        return $this->render('home/home.html.twig', [
-            'controller_name' => 'HomeController',
+        $questionslist = $em->getRepository(Question::class);
+        $query = $questionslist->homequestion();
+        return $this->render('home/home.html.twig',[
+
+                'query' => $query
+
         ]);
+
+
     }
+
+
+
+
 }

@@ -1,0 +1,133 @@
+{% extends 'security/base.html.twig' %}
+{% block title %}Answer!{% endblock %}
+{% block stylesheets  %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/answer.css') }}">
+{% endblock %}
+{% block body %}
+
+
+
+    <br>
+    <br>
+    {% if is_granted('ROLE_USER') %}
+        You are logged in as {{ app.user.firstname|upper }}
+        <b> <a style="margin-left:1200px;display:inline-block;box-shadow:  1px 2px 3px 4px gainsboro;
+   ;color: black" href="{{ path('app_home') }}">Home <i class="fa fa-home" aria-hidden="true"></i></a></b>
+
+        &nbsp;
+        <b> <a style="display:inline-block;box-shadow:  1px 2px 3px 4px gainsboro;
+   ;color: black" href="{{ path('app_logout') }}">Logout <i class="fas fa-sign-out-alt"></i></a></b>
+    {% endif %}
+    {% if not is_granted('ROLE_USER') %}
+    <b> <a style="margin-left:1100px;display:inline-block;box-shadow:  1px 2px 3px 4px gainsboro;
+   ;color: black" href="{{ path('app_home') }}">Home <i class="fa fa-home" aria-hidden="true"></i></a></b>
+        &nbsp; &nbsp;
+        <b> <a style="display:inline-block;box-shadow:  1px 2px 3px 4px gainsboro;
+   ;color: black" href="{{ path('app_Qlist') }}">Questions <i class="fas fa-question"></i></a></b>
+    {% endif %}
+
+    <br>
+    <br>
+
+    <div class="card basic colborder_active" style="width:1130px;margin-left: 150px;">
+    {% for query in query  %}
+        <div style="color: red">
+        Posted On:        {{ query.createdAt|date('Y-m-d') }}
+        </div>
+
+        <div class="card  text-black"  style="font-size: 50px;">
+            (  {{ query.id }} )
+            {{ query.description }}
+            {% if  is_granted('ROLE_USER') %}
+            <a  style="margin-left: 950px;" href="{{ path("edit",{'id':query.id}) }}">edit<i class="fas fa-question"></i></a>
+            {% endif %}
+        </div>
+        {% if  is_granted('ROLE_USER') %}
+        {{ form_start(questioncomment)}}
+        {{ form_errors(questioncomment) }}
+        {{ form_row(questioncomment.body, { 'attr': {'class': 'form-control', 'placeholder': 'Post your question comment...', 'value':''}  }) }}<br>
+        {{ form_end(questioncomment) }}
+        <br>
+        {% endif %}
+    {% endfor %}
+        {% for questionCommentss in questionCommentss %}
+        <div class="card bg-info" style="color: white">
+
+            {{ questionCommentss.body }} <div style="margin-left: 700px;">PostedBy :{{ questionCommentss.user.firstName|upper }}
+                &nbsp; &nbsp; &nbsp; &nbsp;
+            PostedOn :{{ questionCommentss.createdAt|date('Y-m-d') }}</div>
+        </div>
+            <br>
+
+
+        {% endfor %}
+
+
+
+
+
+
+        {% if is_granted('ROLE_USER') %}
+
+        {{ form_start(answers) }}
+        {{ form_errors(answers) }}
+        {{ form_row(answers.description, { 'attr': {'class': 'form-control', 'placeholder': 'Post your answer...', 'value':''}  }) }}<br>
+        {{ form_end(answers) }}
+        <br>
+         {{ form_end(answers) }}
+        {% endif %}
+    </div>
+
+   <br>
+    <h2 style="margin-left: 150px;">Answers: {% if not is_granted('ROLE_USER') %} <a href="{{ path('app_login') }}"> Click here to Answer </a> {% endif %}</h2>
+
+  <div class="container" style="width: 2000px;color: black;">
+    {% for answer in answer%}<br>
+      <div style="color: red">
+    PostedBy :  {{ answer.user.firstname | upper}}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          PostedOn: {{ answer.createdAt|date('Y-m-d') }}
+          </div>
+
+
+      <div class="card  text-black">
+                <div style="box-shadow:1px 2px 3px 4px darkgrey;height: 60px; ">
+       {{ answer.description }}
+
+                    <br>
+                    {% if is_granted('ROLE_USER') %}
+                    <a  style="margin-left: 800px;" href="{{ path("edit_answer",{'id':answer.id}) }}">edit <i class="fas fa-edit"></i> </a>
+                    {% endif %}
+                    <br>
+
+
+
+                    </div>
+                <br>
+                comments:
+                <br>
+                <div class="container" style="color: green;">
+                {% for answercomment in answercomment %}<br>
+
+{#                    {{  dump(answercomment.answer.id)}}#}
+                    {% if  answer.id  ==  answercomment.answer.id %}
+
+                    {{ (answercomment.body) }}
+
+                    {% endif %}
+
+
+                {% endfor %}
+            </div>
+
+                <br>
+          {% if  is_granted('ROLE_USER') %}
+                <a href="{{ path("comment",{'id' : answer.id}) }}" style="margin-left: 1000px;">comment</a>
+          {% endif %}
+
+            </div>
+        {% endfor %}<br>
+  </div>
+
+{% endblock %}

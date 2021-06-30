@@ -24,16 +24,30 @@
         <div class="card-body"></div>
     </div>
 
+
+
     <div class="container">
-        <form>
-            <label for="askquestion" class="sr-only">Photo</label>
-            <input type="text" name="question" id="ask" class="form-control" style="font-size:200%;" placeholder="Write your question.." >
-            <br>
-            <button  style="width: 200px;margin-top:20px;float: right;" class="btn btn-lg btn-primary btn-block" type="submit">
-                PostQuestion!
-            </button>
-        </form>
+{#        <form>#}
+{#            <label for="askquestion" class="sr-only">Photo</label>#}
+{#            <input type="text" name="question" id="ask" class="form-control" style="font-size:200%;" placeholder="Write your question.." >#}
+{#            <br>#}
+
+{#        </form>#}
+
+        {{ form_start(form) }}
+
+        {{ form_row(form.description, { 'attr': {'class': 'form-control', 'placeholder': 'Write your question...', 'value':''}  }) }}
+        <br>
+
+
+        {{ form_end(form) }}
+
+
     </div>
+
+{#    <button  style="width: 200px;margin-top:20px;float: right;" class="btn btn-lg btn-primary btn-block" type="submit">#}
+{#            PostQuestion!#}
+{#        </button>#}
 
 
 
